@@ -8,6 +8,24 @@ using namespace std;
 
 void get_URL(const string &host, const string &path) {
     // Your code here.
+    // TCPSocket sock1;
+    // sock1.connect(Address(host,"80"));
+    // sock1.write("GET /" + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\nConnection: close\r\n\r\n");
+    // // sock1.write("GET "+path+" HTTP/1.1\r\nHost: "+host+"\r\n\r\n");
+    // sock1.shutdown(SHUT_WR);
+    // auto recvd = sock1.read();
+    // std::cout<<recvd<<std::endl;
+    // sock1.close();
+    // return;
+    TCPSocket sock{};
+    sock.connect(Address(host,"http"));
+    sock.write("GET "+path+" HTTP/1.1\r\nHost: "+host+"\r\n\r\n");
+    sock.shutdown(SHUT_WR);
+    while(!sock.eof()){
+        cout<<sock.read();
+    }
+    sock.close();
+    return;
 
     // You will need to connect to the "http" service on
     // the computer whose name is in the "host" string,
